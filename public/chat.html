@@ -107,11 +107,11 @@
           </div>
         </div>
 
-        <!-- Chat Input - More obvious CTA -->
+        <!-- Chat Input - Opens Voiceflow -->
         <div class="mt-auto">
           <div class="w-full h-px bg-[#2d4a47] mb-4"></div>
           <div 
-            onclick="window.open('https://your-voiceflow-chat-url.com', '_blank')"
+            onclick="openChat()"
             class="bg-[#2d4a47] rounded-xl px-5 py-4 cursor-pointer hover:bg-[#1a2f2c] transition-all duration-200 shadow-lg hover:shadow-xl transform hover:scale-[1.01]"
           >
             <p class="text-white font-medium text-center">👋 Click here to start chatting...</p>
@@ -128,5 +128,43 @@
         class="h-8 w-auto"
       />
     </footer>
+
+    <!-- Voiceflow Chat Widget -->
+    <script type="text/javascript">
+      (function(d, t) {
+          var v = d.createElement(t), s = d.getElementsByTagName(t)[0];
+          v.onload = function() {
+            window.voiceflow.chat.load({
+              verify: { projectID: '68326daf9050c5f6f04fed8d' },
+              url: 'https://general-runtime.voiceflow.com',
+              versionID: 'production',
+              voice: {
+                url: "https://runtime-api.voiceflow.com"
+              },
+              autostart: false,
+              allowDangerousHTML: true,
+              assistant: {
+                stylesheet: "data:text/css,.vfrc-launcher { display: none !important; }"
+              }
+            });
+          }
+          v.src = "https://cdn.voiceflow.com/widget-next/bundle.mjs"; 
+          v.type = "text/javascript"; 
+          s.parentNode.insertBefore(v, s);
+      })(document, 'script');
+
+      function openChat() {
+        if (window.voiceflow && window.voiceflow.chat) {
+          window.voiceflow.chat.open();
+        }
+      }
+    </script>
+
+    <!-- Hide the default Voiceflow launcher button -->
+    <style>
+      .vfrc-launcher {
+        display: none !important;
+      }
+    </style>
   </body>
 </html>
