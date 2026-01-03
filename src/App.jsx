@@ -1,12 +1,14 @@
 import { Instagram } from 'lucide-react'
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom'
 import Hero from './components/Hero'
 import Intro from './components/Intro'
 import Testimonials from './components/Testimonials'
 import Story from './components/Story'
 import Pricing from './components/Pricing'
 import Signature from './components/Signature'
+import ChatPage from './components/ChatPage'
 
-function App() {
+function HomePage() {
   return (
     <div className="min-h-screen bg-[#F6F2EA]">
       {/* Top bar */}
@@ -20,7 +22,7 @@ function App() {
             <a href="#story" className="hover:underline">Story</a>
             <a href="#pricing" className="hover:underline">Pricing</a>
             <a href="#signature" className="hover:underline">Signature</a>
-            <a href="/test" className="hover:underline">Status</a>
+            <a href="/chat" className="hover:underline">Chat</a>
           </nav>
         </div>
       </header>
@@ -46,7 +48,7 @@ function App() {
           </div>
 
           <div className="mt-6 border-t border-[#EDE6D6]/10 pt-6 flex items-center justify-between">
-            <p className="text-sm text-[#C0D5CB]">By Order of the Creator Agent Syndicate. “For creators tired of Googling ‘how to write a brand pitch.’”</p>
+            <p className="text-sm text-[#C0D5CB]">By Order of the Creator Agent Syndicate. "For creators tired of Googling 'how to write a brand pitch.'"</p>
             <a
               href="https://instagram.com/creatoragent"
               target="_blank"
@@ -61,6 +63,17 @@ function App() {
         </div>
       </footer>
     </div>
+  )
+}
+
+function App() {
+  return (
+    <Router>
+      <Routes>
+        <Route path="/" element={<HomePage />} />
+        <Route path="/chat" element={<ChatPage />} />
+      </Routes>
+    </Router>
   )
 }
 
