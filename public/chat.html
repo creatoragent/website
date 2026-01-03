@@ -107,7 +107,7 @@
           </div>
         </div>
 
-        <!-- Chat Input - Opens Voiceflow -->
+        <!-- Chat Input - Opens Voiceflow Fullscreen -->
         <div class="mt-auto">
           <div class="w-full h-px bg-[#2d4a47] mb-4"></div>
           <div 
@@ -129,7 +129,7 @@
       />
     </footer>
 
-    <!-- Voiceflow Chat Widget -->
+    <!-- Voiceflow Chat Widget - Fullscreen Popover Mode -->
     <script type="text/javascript">
       (function(d, t) {
           var v = d.createElement(t), s = d.getElementsByTagName(t)[0];
@@ -142,9 +142,8 @@
                 url: "https://runtime-api.voiceflow.com"
               },
               autostart: false,
-              allowDangerousHTML: true,
               assistant: {
-                stylesheet: "data:text/css,.vfrc-launcher { display: none !important; }"
+                renderMode: 'popover'
               }
             });
           }
