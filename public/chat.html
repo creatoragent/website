@@ -1,169 +1,333 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Chat - Creator Agent</title>
-    <link rel="icon" type="image/x-icon" href="favicon.svg">
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Manrope:wght@300;400;500;600;700;800&family=IBM+Plex+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-    <script src="https://cdn.tailwindcss.com"></script>
-  </head>
-  <body class="min-h-screen bg-[#faf9f6] flex flex-col">
-    <!-- Header -->
-    <header class="px-6 py-4">
-      <div class="flex items-center gap-2">
-        <img 
-          src="https://i.imgur.com/ren6gDk.png" 
-          alt="Creator Agent" 
-          class="h-10 w-auto"
-        />
-      </div>
-      <div class="w-full h-1 bg-[#2d4a47] mt-4 rounded-full"></div>
-    </header>
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Chat - Creator Agent</title>
+  <link rel="icon" type="image/x-icon" href="favicon.svg">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Manrope:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="min-h-screen bg-[#faf9f6] flex flex-col">
+  
+  <!-- Header -->
+  <header class="px-6 py-4">
+    <div class="flex items-center justify-between">
+      <img src="https://i.imgur.com/ren6gDk.png" alt="Creator Agent" class="h-10 w-auto" />
+      <button id="signOutBtn" onclick="handleSignOut()" class="hidden px-4 py-2 text-sm text-[#2d4a47] hover:bg-[#2d4a47] hover:text-white rounded-full border border-[#2d4a47]/30 transition-all">
+        Sign Out
+      </button>
+    </div>
+    <div class="w-full h-1 bg-[#2d4a47] mt-4 rounded-full"></div>
+  </header>
 
-    <!-- Main Content -->
-    <main class="flex-1 flex flex-col md:flex-row px-6 py-8 gap-8 max-w-6xl mx-auto w-full">
+  <!-- Main Content -->
+  <main class="flex-1 flex items-center justify-center px-6 py-8">
+    
+    <!-- Loading State -->
+    <div id="loadingState" class="text-center">
+      <div class="w-12 h-12 border-4 border-[#2d4a47]/20 border-t-[#2d4a47] rounded-full animate-spin mx-auto mb-4"></div>
+      <p class="text-[#2d4a47]/60">Loading...</p>
+    </div>
+
+    <!-- Sign In State -->
+    <div id="signInState" class="hidden text-center max-w-md">
+      <div class="w-32 h-32 rounded-full overflow-hidden border-4 border-[#2d4a47]/10 mx-auto mb-6">
+        <img src="https://i.imgur.com/AQf7KEe.jpeg" alt="Jordan" class="w-full h-full object-cover" />
+      </div>
+      <h1 class="text-2xl font-bold text-[#2d4a47] mb-2">Welcome to Creator Agent</h1>
+      <p class="text-[#2d4a47]/70 mb-8">Sign in to access your AI talent agent</p>
       
-      <!-- Left Sidebar - Profile -->
-      <div class="md:w-80 flex flex-col items-center">
-        <!-- Profile Image -->
-        <div class="w-48 h-48 md:w-56 md:h-56 rounded-full overflow-hidden border-4 border-[#2d4a47]/10 mb-8">
-          <img 
-            src="https://i.imgur.com/AQf7KEe.jpeg" 
-            alt="Jordan"
-            class="w-full h-full object-cover"
-          />
-        </div>
+      <button onclick="handleGoogleSignIn()" class="flex items-center justify-center gap-3 w-full py-3 px-6 bg-white border-2 border-[#2d4a47]/20 rounded-xl hover:border-[#2d4a47]/40 hover:shadow-lg transition-all duration-200">
+        <svg class="w-5 h-5" viewBox="0 0 24 24">
+          <path fill="#4285F4" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"/>
+          <path fill="#34A853" d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z"/>
+          <path fill="#FBBC05" d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z"/>
+          <path fill="#EA4335" d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z"/>
+        </svg>
+        <span class="font-medium text-[#2d4a47]">Continue with Google</span>
+      </button>
+      
+      <p class="text-sm text-[#2d4a47]/50 mt-6">
+        Only authorized users can access the chat
+      </p>
+    </div>
 
-        <!-- Buttons -->
-        <div class="flex flex-col gap-3 w-full max-w-[240px]">
-          <a 
-            href="https://creatoragent.vercel.app/" 
-            class="w-full py-3 px-6 border-2 border-[#2d4a47]/30 rounded-full text-[#2d4a47] font-medium hover:bg-[#2d4a47] hover:text-white transition-all duration-200 text-center"
-          >
-            About
-          </a>
-          <a 
-            href="https://t.me/+xZMTX0k_zMZjMzRh" 
-            target="_blank" 
-            rel="noopener noreferrer"
-            class="w-full py-3 px-6 border-2 border-[#2d4a47]/30 rounded-full text-[#2d4a47] font-medium hover:bg-[#2d4a47] hover:text-white transition-all duration-200 text-center"
-          >
-            Telegram
-          </a>
-        </div>
+    <!-- Not Authorized State -->
+    <div id="notAuthorizedState" class="hidden text-center max-w-md">
+      <div class="w-20 h-20 bg-red-100 rounded-full flex items-center justify-center mx-auto mb-6">
+        <svg class="w-10 h-10 text-red-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"/>
+        </svg>
       </div>
+      <h1 class="text-2xl font-bold text-[#2d4a47] mb-2">Access Required</h1>
+      <p class="text-[#2d4a47]/70 mb-4">
+        Your account (<span id="deniedEmail" class="font-medium"></span>) doesn't have access yet.
+      </p>
+      <p class="text-[#2d4a47]/60 mb-8">
+        Get access by subscribing to Creator Agent.
+      </p>
+      
+      <a href="https://creatoragent.vercel.app/" class="inline-block py-3 px-8 bg-[#2d4a47] text-white font-medium rounded-xl hover:bg-[#1a2f2c] transition-all duration-200">
+        Get Access
+      </a>
+      
+      <button onclick="handleSignOut()" class="block w-full mt-4 py-2 text-[#2d4a47]/60 hover:text-[#2d4a47] text-sm transition-all">
+        Sign in with a different account
+      </button>
+    </div>
 
-      <!-- Divider -->
-      <div class="hidden md:block w-px bg-[#2d4a47] self-stretch"></div>
-
-      <!-- Right Side - Chat -->
-      <div class="flex-1 flex flex-col">
-        <!-- Chat Messages - All left aligned, all green -->
-        <div class="flex-1 flex flex-col gap-4 mb-6">
+    <!-- Authorized / Chat State -->
+    <div id="chatState" class="hidden w-full max-w-6xl">
+      <div class="flex flex-col md:flex-row gap-8">
+        
+        <!-- Left Sidebar - Profile -->
+        <div class="md:w-80 flex flex-col items-center">
+          <div class="w-48 h-48 md:w-56 md:h-56 rounded-full overflow-hidden border-4 border-[#2d4a47]/10 mb-8">
+            <img src="https://i.imgur.com/AQf7KEe.jpeg" alt="Jordan" class="w-full h-full object-cover" />
+          </div>
           
-          <!-- Message 1 -->
-          <div class="flex items-start gap-3">
-            <div class="w-10 h-10 rounded-full overflow-hidden flex-shrink-0 border-2 border-[#2d4a47]/20">
-              <img 
-                src="https://i.imgur.com/AQf7KEe.jpeg" 
-                alt="Jordan"
-                class="w-full h-full object-cover"
-              />
-            </div>
-            <div class="bg-[#2d4a47] text-white px-5 py-3 rounded-2xl rounded-tl-sm max-w-md">
-              <p>Hi there, I'm Jordan</p>
-            </div>
+          <div class="text-center mb-6">
+            <p class="text-[#2d4a47]/60 text-sm">Signed in as</p>
+            <p id="userEmail" class="font-medium text-[#2d4a47]"></p>
           </div>
 
-          <!-- Message 2 -->
-          <div class="flex items-start gap-3">
-            <div class="w-10 h-10 rounded-full overflow-hidden flex-shrink-0 border-2 border-[#2d4a47]/20">
-              <img 
-                src="https://i.imgur.com/AQf7KEe.jpeg" 
-                alt="Jordan"
-                class="w-full h-full object-cover"
-              />
-            </div>
-            <div class="bg-[#2d4a47] text-white px-5 py-3 rounded-2xl rounded-tl-sm max-w-md">
-              <p>The 24/7 AI talent agent for creators.</p>
-            </div>
-          </div>
-
-          <!-- Message 3 -->
-          <div class="flex items-start gap-3">
-            <div class="w-10 h-10 rounded-full overflow-hidden flex-shrink-0 border-2 border-[#2d4a47]/20">
-              <img 
-                src="https://i.imgur.com/AQf7KEe.jpeg" 
-                alt="Jordan"
-                class="w-full h-full object-cover"
-              />
-            </div>
-            <div class="bg-[#2d4a47] text-white px-5 py-4 rounded-2xl rounded-tl-sm max-w-lg">
-              <p>Welcome to the Creator Agent beta! Right now, I can help you craft high-converting emails and find brand contacts you want to pitch.</p>
-            </div>
+          <div class="flex flex-col gap-3 w-full max-w-[240px]">
+            <a href="https://creatoragent.vercel.app/" class="w-full py-3 px-6 border-2 border-[#2d4a47]/30 rounded-full text-[#2d4a47] font-medium hover:bg-[#2d4a47] hover:text-white transition-all duration-200 text-center">
+              About
+            </a>
+            <a href="https://t.me/+xZMTX0k_zMZjMzRh" target="_blank" rel="noopener noreferrer" class="w-full py-3 px-6 border-2 border-[#2d4a47]/30 rounded-full text-[#2d4a47] font-medium hover:bg-[#2d4a47] hover:text-white transition-all duration-200 text-center">
+              Telegram
+            </a>
           </div>
         </div>
 
-        <!-- Chat Input - Opens Voiceflow Fullscreen -->
-        <div class="mt-auto">
-          <div class="w-full h-px bg-[#2d4a47] mb-4"></div>
-          <div 
-            onclick="openChat()"
-            class="bg-[#2d4a47] rounded-xl px-5 py-4 cursor-pointer hover:bg-[#1a2f2c] transition-all duration-200 shadow-lg hover:shadow-xl transform hover:scale-[1.01]"
-          >
-            <p class="text-white font-medium text-center">👋 Click here to start chatting...</p>
+        <!-- Divider -->
+        <div class="hidden md:block w-px bg-[#2d4a47] self-stretch"></div>
+
+        <!-- Right Side - Chat -->
+        <div class="flex-1 flex flex-col">
+          <div class="flex-1 flex flex-col gap-4 mb-6">
+            
+            <!-- Welcome Messages -->
+            <div class="flex items-start gap-3">
+              <div class="w-10 h-10 rounded-full overflow-hidden flex-shrink-0 border-2 border-[#2d4a47]/20">
+                <img src="https://i.imgur.com/AQf7KEe.jpeg" alt="Jordan" class="w-full h-full object-cover" />
+              </div>
+              <div class="bg-[#2d4a47] text-white px-5 py-3 rounded-2xl rounded-tl-sm max-w-md">
+                <p>Hey <span id="userFirstName">there</span>! 👋</p>
+              </div>
+            </div>
+
+            <div class="flex items-start gap-3">
+              <div class="w-10 h-10 rounded-full overflow-hidden flex-shrink-0 border-2 border-[#2d4a47]/20">
+                <img src="https://i.imgur.com/AQf7KEe.jpeg" alt="Jordan" class="w-full h-full object-cover" />
+              </div>
+              <div class="bg-[#2d4a47] text-white px-5 py-3 rounded-2xl rounded-tl-sm max-w-lg">
+                <p>Ready to find some brand contacts? Click below to start chatting.</p>
+              </div>
+            </div>
+          </div>
+
+          <!-- Chat Button -->
+          <div class="mt-auto">
+            <div class="w-full h-px bg-[#2d4a47] mb-4"></div>
+            <div onclick="openChat()" class="bg-[#2d4a47] rounded-xl px-5 py-4 cursor-pointer hover:bg-[#1a2f2c] transition-all duration-200 shadow-lg hover:shadow-xl transform hover:scale-[1.01]">
+              <p class="text-white font-medium text-center">👋 Click here to start chatting...</p>
+            </div>
           </div>
         </div>
       </div>
-    </main>
+    </div>
+  </main>
 
-    <!-- Footer -->
-    <footer class="px-6 py-6 flex justify-center">
-      <img 
-        src="https://i.imgur.com/73Hrwgh.png" 
-        alt="Creator Agent" 
-        class="h-8 w-auto"
-      />
-    </footer>
+  <!-- Footer -->
+  <footer class="px-6 py-6 flex justify-center">
+    <img src="https://i.imgur.com/73Hrwgh.png" alt="Creator Agent" class="h-8 w-auto" />
+  </footer>
 
-    <!-- Voiceflow Chat Widget - Fullscreen Popover Mode -->
-    <script type="text/javascript">
-      (function(d, t) {
-          var v = d.createElement(t), s = d.getElementsByTagName(t)[0];
-          v.onload = function() {
-            window.voiceflow.chat.load({
-              verify: { projectID: '68326daf9050c5f6f04fed8d' },
-              url: 'https://general-runtime.voiceflow.com',
-              versionID: 'production',
-              voice: {
-                url: "https://runtime-api.voiceflow.com"
-              },
-              autostart: false,
-              assistant: {
-                renderMode: 'popover'
-              }
-            });
-          }
-          v.src = "https://cdn.voiceflow.com/widget-next/bundle.mjs"; 
-          v.type = "text/javascript"; 
-          s.parentNode.insertBefore(v, s);
-      })(document, 'script');
+  <!-- Firebase SDK -->
+  <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-auth-compat.js"></script>
 
-      function openChat() {
-        if (window.voiceflow && window.voiceflow.chat) {
-          window.voiceflow.chat.open();
+  <!-- Voiceflow Chat Widget -->
+  <script type="text/javascript">
+    (function(d, t) {
+      var v = d.createElement(t), s = d.getElementsByTagName(t)[0];
+      v.onload = function() {
+        console.log('Voiceflow loaded');
+      }
+      v.src = "https://cdn.voiceflow.com/widget-next/bundle.mjs"; 
+      v.type = "text/javascript"; 
+      s.parentNode.insertBefore(v, s);
+    })(document, 'script');
+  </script>
+
+  <script>
+    // ============================================
+    // CONFIGURATION
+    // ============================================
+    
+    const firebaseConfig = {
+      apiKey: "AIzaSyB2c9k8xz4y4SX6qlF2EKR6fYs6X1RkQHg",
+      authDomain: "creator-agent-co.firebaseapp.com",
+      projectId: "creator-agent-co",
+      storageBucket: "creator-agent-co.firebasestorage.app",
+      messagingSenderId: "107641170614",
+      appId: "1:107641170614:web:355671bf15c1f98153d417"
+    };
+
+    const GOOGLE_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbwOLqwTx_8qS6kREcZ7SsgyD7rfC-8AsIyEiPLHN_yCB1ci-mu2mqi67V3VXHSASl8S/exec";
+    const VOICEFLOW_PROJECT_ID = "68326daf9050c5f6f04fed8d";
+
+    // ============================================
+    // INITIALIZE FIREBASE
+    // ============================================
+    
+    firebase.initializeApp(firebaseConfig);
+    const auth = firebase.auth();
+    const provider = new firebase.auth.GoogleAuthProvider();
+
+    // ============================================
+    // UI STATE MANAGEMENT
+    // ============================================
+    
+    function showState(stateName) {
+      const states = ['loadingState', 'signInState', 'notAuthorizedState', 'chatState'];
+      states.forEach(state => {
+        document.getElementById(state).classList.add('hidden');
+      });
+      document.getElementById(stateName).classList.remove('hidden');
+      
+      // Show/hide sign out button
+      const signOutBtn = document.getElementById('signOutBtn');
+      if (stateName === 'chatState' || stateName === 'notAuthorizedState') {
+        signOutBtn.classList.remove('hidden');
+      } else {
+        signOutBtn.classList.add('hidden');
+      }
+    }
+
+    // ============================================
+    // CHECK AUTHORIZATION
+    // ============================================
+    
+    async function checkAuthorization(email) {
+      try {
+        const response = await fetch(`${GOOGLE_SCRIPT_URL}?email=${encodeURIComponent(email)}`);
+        const data = await response.json();
+        return data;
+      } catch (error) {
+        console.error('Authorization check failed:', error);
+        return { authorized: false, error: error.message };
+      }
+    }
+
+    // ============================================
+    // HANDLE AUTH STATE CHANGES
+    // ============================================
+    
+    auth.onAuthStateChanged(async (user) => {
+      if (user) {
+        // User is signed in
+        console.log('User signed in:', user.email);
+        
+        // Check if authorized
+        const authResult = await checkAuthorization(user.email);
+        
+        if (authResult.authorized) {
+          // Show chat
+          document.getElementById('userEmail').textContent = user.email;
+          document.getElementById('userFirstName').textContent = authResult.name || user.displayName?.split(' ')[0] || 'there';
+          showState('chatState');
+          
+          // Initialize Voiceflow with user info
+          initVoiceflow(user.email, authResult.name || user.displayName);
+        } else {
+          // Not authorized
+          document.getElementById('deniedEmail').textContent = user.email;
+          showState('notAuthorizedState');
         }
+      } else {
+        // User is signed out
+        showState('signInState');
       }
-    </script>
+    });
 
-    <!-- Hide the default Voiceflow launcher button -->
-    <style>
-      .vfrc-launcher {
-        display: none !important;
+    // ============================================
+    // SIGN IN / SIGN OUT
+    // ============================================
+    
+    function handleGoogleSignIn() {
+      showState('loadingState');
+      auth.signInWithPopup(provider)
+        .catch((error) => {
+          console.error('Sign in error:', error);
+          showState('signInState');
+          alert('Sign in failed. Please try again.');
+        });
+    }
+
+    function handleSignOut() {
+      auth.signOut()
+        .then(() => {
+          console.log('User signed out');
+          showState('signInState');
+        })
+        .catch((error) => {
+          console.error('Sign out error:', error);
+        });
+    }
+
+    // ============================================
+    // VOICEFLOW
+    // ============================================
+    
+    let voiceflowLoaded = false;
+
+    function initVoiceflow(userEmail, userName) {
+      // Wait for Voiceflow to be available
+      const checkVoiceflow = setInterval(() => {
+        if (window.voiceflow && window.voiceflow.chat) {
+          clearInterval(checkVoiceflow);
+          
+          window.voiceflow.chat.load({
+            verify: { projectID: VOICEFLOW_PROJECT_ID },
+            url: 'https://general-runtime.voiceflow.com',
+            versionID: 'production',
+            user: {
+              name: userName,
+              email: userEmail
+            },
+            userID: userEmail, // Track user by email
+            autostart: false,
+            assistant: {
+              renderMode: 'popover'
+            }
+          });
+          
+          voiceflowLoaded = true;
+          console.log('Voiceflow initialized for:', userEmail);
+        }
+      }, 100);
+    }
+
+    function openChat() {
+      if (window.voiceflow && window.voiceflow.chat) {
+        window.voiceflow.chat.open();
+      } else {
+        console.log('Voiceflow not ready yet');
       }
-    </style>
-  </body>
+    }
+  </script>
+
+  <!-- Hide Voiceflow launcher bubble -->
+  <style>
+    .vfrc-launcher {
+      display: none !important;
+    }
+  </style>
+</body>
 </html>
