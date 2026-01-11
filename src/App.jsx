@@ -24,7 +24,6 @@ function App() {
             <a href="#faq" className="hover:underline">FAQ</a>
             <a href="#signature" className="hover:underline">Signature</a>
             <a href="/agent" className="hover:underline">Agent</a>
-            <a href="/test" className="hover:underline">Status</a>
             <a
               href="/login"
               className="inline-flex items-center gap-2 rounded-md bg-[#0B3D2E] px-3 py-2 text-[#EDE6D6] hover:bg-[#2F4F4F] transition-colors min-h-[44px]"
@@ -83,7 +82,7 @@ function App() {
           </div>
 
           <div className="mt-6 border-t border-[#EDE6D6]/10 pt-6 flex flex-col sm:flex-row items-center justify-between gap-4">
-            <p className="text-sm text-[#C0D5CB] text-center sm:text-left">By Order of the Creator Agent Syndicate. “For creators tired of Googling ‘how to write a brand pitch.’”</p>
+            <p className="text-sm text-[#C0D5CB] text-center sm:text-left">By Order of the Creator Agent Syndicate. "For creators tired of Googling 'how to write a brand pitch.'"</p>
             <a
               href="https://instagram.com/creatoragent"
               target="_blank"
