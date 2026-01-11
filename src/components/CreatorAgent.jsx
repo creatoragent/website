@@ -252,7 +252,14 @@ function CreatorAgent() {
     )
   }
 
-  // Authorized State - Show Chat
+  const suggestions = [
+    'Find me the brand contact for Sony',
+    'Write me a pitch for Airbnb',
+    'Create a meeting script for my call with Adobe',
+    "Analyze Oura Ring's socials and find content gaps I can pitch them",
+  ]
+
+  // Authorized State - Show Chat (Original flames.blue style)
   return (
     <div className="min-h-screen bg-[#F6F2EA] text-[#0B3D2E] flex flex-col">
       <Header onSignOut={handleSignOut} showSignOut={true} />
@@ -268,49 +275,63 @@ function CreatorAgent() {
               loading="lazy"
             />
           </div>
-          <h2 className="mt-3 text-base sm:text-lg font-semibold text-[#0B3D2E]">Hey {userName}! 👋</h2>
-          <p className="text-xs sm:text-sm text-[#C8A96E] italic">Your AI Talent Agent is ready</p>
-          <p className="text-xs text-[#2F4F4F] mt-1">{user?.email}</p>
+          <h2 className="mt-3 text-base sm:text-lg font-semibold text-[#0B3D2E]">Creator Agent</h2>
+          <p className="text-xs sm:text-sm text-[#C8A96E] italic">The AI Talent Agent for Creators</p>
         </div>
 
         {/* Chat Card */}
         <section className="rounded-2xl border border-[#D7C9A4] bg-[#EDE6D6] shadow-sm">
-          <div className="p-4 sm:p-6">
+          <div className="p-3 sm:p-4">
             <p className="text-xs sm:text-sm font-semibold tracking-[0.2em] uppercase text-[#0B3D2E]">LET'S CHAT!</p>
             <div className="mt-2 h-px bg-[#D7C9A4]"></div>
 
-            <div className="mt-4 space-y-3 text-[#2F4F4F]">
-              <p>Ready to find brand contacts, craft pitches, or prep for a call?</p>
-              <p>Click below to start chatting with your AI talent agent.</p>
-            </div>
+            <div className="mt-2">
+              {/* Clickable textarea-style area that opens Voiceflow */}
+              <div
+                onClick={openChat}
+                className="w-full rounded-lg bg-[#F6F2EA] border border-[#D7C9A4] p-2 sm:p-3 min-h-[80px] cursor-pointer hover:border-[#C8A96E] transition-colors"
+              >
+                <p className="text-sm sm:text-base text-[#2F4F4F]/60">Who are we pitching today?</p>
+              </div>
 
-            <button
-              onClick={openChat}
-              className="mt-6 w-full inline-flex items-center justify-center gap-2 rounded-md bg-[#0B3D2E] text-[#EDE6D6] px-4 py-4 shadow-sm hover:bg-[#2F4F4F] transition-colors"
-            >
-              <span className="text-lg">💬</span>
-              <span className="font-medium">Start Chatting</span>
-            </button>
+              {/* Suggestions and submit */}
+              <div className="mt-2 sm:mt-3 grid grid-cols-1 sm:grid-cols-[1fr,auto] items-start gap-2">
+                <div className="flex flex-wrap gap-2">
+                  {suggestions.map((s, i) => (
+                    <button
+                      key={i}
+                      type="button"
+                      onClick={openChat}
+                      className="inline-flex items-center gap-2 rounded-full border border-[#D7C9A4] bg-[#EDE6D6] px-3 py-1 sm:py-1.5 text-sm italic text-[#2F4F4F] hover:bg-[#EDE6D6]/80 hover:text-[#0B3D2E] transition-colors shadow-sm"
+                    >
+                      <svg className="w-4 h-4 text-[#0B3D2E]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M9 5l7 7-7 7" />
+                      </svg>
+                      {s}
+                    </button>
+                  ))}
+                </div>
+
+                <button
+                  onClick={openChat}
+                  className="self-start w-full sm:w-auto inline-flex items-center justify-center gap-2 rounded-md bg-[#0B3D2E] text-[#EDE6D6] px-4 py-3 sm:py-2 shadow-sm hover:bg-[#2F4F4F] transition-colors"
+                  aria-label="Chat with Creator Agent"
+                  title="Chat"
+                >
+                  <span className="text-[#C8A96E]">$</span>
+                  <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M14 5l7 7m0 0l-7 7m7-7H3" />
+                  </svg>
+                </button>
+              </div>
+            </div>
           </div>
         </section>
 
-        {/* Quick Actions */}
-        <div className="mt-6 grid grid-cols-2 gap-3">
-          <a
-            href="/"
-            className="rounded-xl border border-[#D7C9A4] bg-[#EDE6D6] p-4 text-center hover:border-[#C8A96E] transition-colors"
-          >
-            <span className="text-sm text-[#2F4F4F]">Home</span>
-          </a>
-          <a
-            href="https://t.me/+xZMTX0k_zMZjMzRh"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="rounded-xl border border-[#D7C9A4] bg-[#EDE6D6] p-4 text-center hover:border-[#C8A96E] transition-colors"
-          >
-            <span className="text-sm text-[#2F4F4F]">Telegram</span>
-          </a>
-        </div>
+        {/* Signed in as */}
+        <p className="mt-4 text-center text-xs text-[#2F4F4F]">
+          Signed in as <span className="font-medium">{user?.email}</span>
+        </p>
       </main>
 
       <Footer />
