@@ -2,7 +2,6 @@ import React from 'react'
 import ReactDOM from 'react-dom/client'
 import { BrowserRouter, Routes, Route } from 'react-router-dom'
 import App from './App'
-import Test from './Test'
 import Agent from './Agent'
 import Login from './Login'
 import Checkout from './Checkout'
@@ -15,7 +14,6 @@ ReactDOM.createRoot(document.getElementById('root')).render(
         <Route path="/" element={<App />} />
         <Route path="/agent" element={<Agent />} />
         <Route path="/login" element={<Login />} />
-        <Route path="/test" element={<Test />} />
         <Route path="/checkout" element={<Checkout />} />
       </Routes>
     </BrowserRouter>
