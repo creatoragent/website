@@ -1,71 +1,106 @@
+import { Check } from 'lucide-react'
+import { Link } from 'react-router-dom'
+
 function Pricing() {
-  const memberships = [
+  const plans = [
     {
-      name: 'Agent',
-      price: '$40',
-      period: 'per month',
+      name: 'Top Agent',
+      price: 199,
+      period: '(Lifetime Access)',
+      description: 'Agent-level guidance to help you pitch with clarity, price with confidence, and negotiate better partnerships.',
       features: [
-        'The Advancement.',
-        'Unlocks the Partnership Index and Performance Ledger.',
-        'For creators managing multiple brands and negotiations.',
+        'Direct access to 1M+ verified brand decision-makers',
+        'Access up to 50 brand contacts per month, on demand',
+        'Agent-grade pitches, drafted in minutes',
+        'Pricing and negotiation guidance informed by real deals',
+        'Brand insight to identify the right partnership angles',
+        'Meeting prep and call scripts, when it matters most',
+        'Lifetime access to all future updates and releases',
       ],
-    },
-    {
-      name: 'Managing Director',
-      price: '$70',
-      period: 'per month',
-      features: [
-        'The Full Firm Experience.',
-        'Access to every tool, advanced analytics, and exclusive deal insights.',
-        'For creators ready to turn influence into enterprise.',
-      ],
+      cta: 'Get Representation',
+      spots: 97,
     },
   ]
 
   return (
-    <section id="pricing" className="bg-[#EDE6D6] py-20">
-      <div className="mx-auto max-w-7xl px-6">
-        <div className="mb-12 text-center">
-          <p className="text-sm tracking-wide uppercase text-[#C8A96E]">MEMBERSHIP — Titles, Not Tiers</p>
-          <div className="mt-3 h-px bg-[#C8A96E]/30 mx-auto max-w-sm" />
-          <h2 className="mt-6 text-3xl sm:text-4xl font-semibold text-[#0B3D2E]">We don’t do plans. We grant titles.</h2>
-          <p className="mt-2 text-[#2F4F4F]">Each one earned — not subscribed.</p>
+    <section id="pricing" className="bg-[#EDE6D6] py-10 overflow-hidden">
+      <div className="mx-auto max-w-6xl px-4 sm:px-6">
+        {/* Label */}
+        <div className="inline-flex items-center gap-2 mb-4">
+          <span className="w-8 h-px bg-[#C8A96E]" />
+          <span className="text-xs tracking-[0.2em] uppercase text-[#C8A96E]">Members Club</span>
         </div>
 
-        <div className="grid md:grid-cols-2 gap-6">
-          {memberships.map((m, idx) => (
-            <div
-              key={idx}
-              className="rounded-xl border border-[#0B3D2E]/20 bg-white p-6 flex flex-col"
-            >
-              <div className="flex-1">
-                <h3 className="text-xl font-medium text-[#0B3D2E]">{m.name}</h3>
-                <div className="mt-4 flex items-end gap-2">
-                  <span className="text-4xl font-semibold text-[#0B3D2E]">{m.price}</span>
-                  <span className="text-sm text-[#2F4F4F]">{m.period}</span>
+        {/* Title */}
+        <div className="max-w-3xl mx-auto text-center mb-10">
+          <h2 className="text-2xl sm:text-3xl font-semibold text-[#0B3D2E]">MEMBERSHIP — Titles, Not Tiers</h2>
+          <p className="mt-3 text-[#2F4F4F]">We don’t do plans. We grant access</p>
+        </div>
+
+        {/* Plans */}
+        <div className="grid grid-cols-1 justify-items-center gap-6 md:gap-8">
+          {plans.map((plan, idx) => (
+            <div key={idx} className="relative w-full max-w-xl">
+              {/* Stronger golden halo */}
+              <div className="pointer-events-none absolute -inset-2 rounded-[2rem] bg-[#C8A96E]/40 blur-2xl" />
+              <div className="pointer-events-none absolute -inset-6 rounded-[2rem] bg-[#C8A96E]/25 blur-3xl" />
+
+              <div className="relative z-10 rounded-3xl bg-[#EDE6D6] p-1.5">
+                <div className="relative rounded-2xl border border-[#C8A96E] bg-gradient-to-br from-[#F6F2EA] to-[#EDE6D6] shadow-[0_0_40px_rgba(200,169,110,0.2),0_6px_24px_rgba(11,61,46,0.08)] overflow-hidden ring-1 ring-[#C8A96E]/40">
+                  {/* Membership card accents */}
+                  <div className="absolute inset-x-0 top-0 h-px bg-[#C8A96E]" />
+                  {/* Bottom shade */}
+                  <div className="absolute inset-x-0 bottom-0 h-24 sm:h-28 bg-gradient-to-t from-[#0B3D2E]/8 to-transparent pointer-events-none" />
+
+                  <div className="relative z-10 p-6 sm:p-8">
+                    <div className="flex items-baseline justify-between">
+                      <h4 className="text-lg sm:text-2xl font-semibold text-[#0B3D2E]">{plan.name}</h4>
+                      <div className="text-[#0B3D2E]">
+                        <span className="text-3xl sm:text-4xl md:text-5xl font-bold">${plan.price}</span>
+                        <span className="ml-2 text-sm sm:text-base md:text-lg italic text-[#2F4F4F]">{plan.period}</span>
+                      </div>
+                    </div>
+
+                    <p className="mt-3 text-[#2F4F4F]">{plan.description}</p>
+                    {/* Gold divider under description */}
+                    <div className="mt-4">
+                      <span className="block w-full h-px bg-[#C8A96E]" />
+                    </div>
+
+                    <ul className="mt-6 space-y-3">
+                      {plan.features.map((f, i) => (
+                        <li key={i} className="flex items-start gap-3 text-[#0B3D2E]">
+                          <Check strokeWidth={3} className="mt-0.5 h-5 w-5 text-[#0B3D2E]" />
+                          <span className="text-[#2F4F4F]">{f}</span>
+                        </li>
+                      ))}
+                    </ul>
+
+                    <Link
+                      to="/checkout"
+                      className="mt-8 mx-auto flex w-full sm:w-auto items-center justify-center gap-3 rounded-lg bg-[#0B3D2E] px-6 py-3.5 sm:px-8 sm:py-4 text-[#EDE6D6] text-lg font-semibold shadow-[0_8px_24px_rgba(11,61,46,0.15)] hover:bg-[#0B3D2E]/90 transition-colors"
+                      aria-label="Get access checkout"
+                    >
+                      <span>{plan.cta}</span>
+                    </Link>
+
+                    {/* Spots left pill below the CTA */}
+                    <div className="mt-2 flex justify-center">
+                      <span className="inline-flex items-center rounded-full bg-[#C8A96E] text-[#0B3D2E] px-3 py-1.5 text-xs font-semibold shadow-sm">
+                        Only {plan.spots} Spots Left
+                      </span>
+                    </div>
+
+                    {/* Subtext under button */}
+                    <div className="mt-3 text-center text-sm italic text-[#2F4F4F]">Full agent access for 7 days. No charge.</div>
+
+                    <div className="mt-6 text-center text-xs tracking-[0.2em] uppercase text-[#C8A96E]">Keep 100% of what you make</div>
+                  </div>
                 </div>
-                <ul className="mt-4 space-y-2">
-                  {m.features.map((f, i) => (
-                    <li key={i} className="flex items-start gap-3 text-[#2F4F4F]">
-                      <span className="mt-2 w-1.5 h-1.5 rounded-full bg-[#C8A96E]"></span>
-                      <span>{f}</span>
-                    </li>
-                  ))}
-                </ul>
               </div>
-              <a
-                href="#"
-                className="mt-6 inline-flex items-center justify-center rounded-md px-6 py-3 font-medium border border-[#0B3D2E] text-[#0B3D2E] hover:bg-[#0B3D2E]/5"
-              >
-                Request consideration
-              </a>
             </div>
           ))}
         </div>
-
-        <p className="mt-12 text-center text-[#0B3D2E]">
-          No middlemen. No gatekeepers. Just creators with leverage.
-        </p>
       </div>
     </section>
   )

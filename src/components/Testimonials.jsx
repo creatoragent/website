@@ -18,17 +18,18 @@ function Testimonials() {
   ]
 
   return (
-    <section id="testimonials" className="bg-[#0B3D2E] text-[#EDE6D6] py-20">
-      <div className="mx-auto max-w-7xl px-6">
-        <div className="mb-12 text-center md:text-left">
-          <p className="text-sm tracking-wide uppercase text-[#C8A96E]">LETTERS OF RECOMMENDATION — Social Proof</p>
+    <section id="testimonials" className="bg-[#0B3D2E] text-[#F6F2EA] pt-10 sm:pt-12 lg:pt-14 pb-8 sm:pb-12 lg:pb-14">
+      <div className="mx-auto max-w-7xl px-4 sm:px-6">
+        <div className="mb-6 sm:mb-7 text-center md:text-left">
+          <p className="text-sm tracking-wide uppercase text-[#C8A96E]">— LETTERS OF RECOMMENDATION</p>
           <div className="mt-3 h-px bg-[#C8A96E]/30" />
-          <h2 className="mt-6 text-2xl sm:text-3xl font-semibold">
+          <h2 className="mt-5 text-2xl sm:text-3xl font-semibold">
             In our world, these are records of performance.
           </h2>
         </div>
 
-        <div className="grid md:grid-cols-3 gap-8">
+        {/* Slightly increased spacing between the title block and the photo cards */}
+        <div className="mt-10 sm:mt-12 grid md:grid-cols-3 gap-6 md:gap-8">
           {letters.map((q, idx) => (
             <div key={idx} className="relative">
               {/* Circle photo placeholder */}
@@ -39,19 +40,15 @@ function Testimonials() {
               </div>
 
               {/* Testimonial card */}
-              <figure className="rounded-xl border border-[#C0D5CB]/20 bg-[#0F4A3A] p-6 pt-12 text-center">
-                <blockquote className="text-lg italic">“{q.quote}”</blockquote>
-                <figcaption className="mt-4 text-sm text-[#C0D5CB]">
+              <figure className="rounded-xl border border-[#C0D5CB]/20 bg-[#0B3D2E] p-6 pt-12 text-center">
+                <blockquote className="text-base sm:text-lg italic">“{q.quote}”</blockquote>
+                <figcaption className="mt-4 text-sm text-[#F6F2EA]/80">
                   — {q.author}, {q.role}
                 </figcaption>
               </figure>
             </div>
           ))}
         </div>
-
-        <p className="mt-12 text-center text-lg">
-          Creators don’t chase deals here, they close them.
-        </p>
       </div>
     </section>
   )
