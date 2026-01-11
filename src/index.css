@@ -1,9 +1,15 @@
+@import url('https://fonts.googleapis.com/css2?family=EB+Garamond:wght@400;600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Libre+Baskerville:wght@400;700&display=swap');
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
 @layer base {
   :root {
+    --font-title: 'EB Garamond', Garamond, 'Times New Roman', serif;
+    --font-body: 'Baskerville', 'Libre Baskerville', 'Baskerville Old Face', 'Times New Roman', serif;
+    --font-button: 'Neue Haas Grotesk', 'Helvetica Neue', Helvetica, Arial, system-ui, sans-serif;
     --font-sans: 'Inter', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
     --font-geist: 'Geist', system-ui, sans-serif;
     --font-geist-mono: 'Geist Mono', monospace;
@@ -13,12 +19,78 @@
   }
 
   html {
-    font-family: var(--font-sans);
+    font-family: var(--font-body);
     font-feature-settings: "rlig" 1, "calt" 1;
+    scroll-behavior: smooth;
+  }
+
+  h1, h2, h3, h4, h5, h6 {
+    font-family: var(--font-title);
   }
 
   body {
     @apply antialiased;
+    /* Soft parchment base under all sections */
+    background-color: #F6F2EA; /* warm, light paper */
+    background-image:
+      radial-gradient(1200px 600px at 10% 0%, rgba(0,0,0,0.02), rgba(0,0,0,0)),
+      radial-gradient(800px 400px at 90% 10%, rgba(0,0,0,0.015), rgba(0,0,0,0));
+    background-attachment: fixed;
+  }
+
+  /* Site-wide subtle paper grain overlay */
+  body::before {
+    content: "";
+    position: fixed;
+    inset: 0;
+    pointer-events: none;
+    /* SVG noise texture encoded for performance and portability */
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='3' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3CfeComponentTransfer%3E%3CfeFuncA type='table' tableValues='0 0 0.07 0'/%3E%3C/feComponentTransfer%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+    background-repeat: repeat;
+    background-size: 200px 200px;
+    opacity: 0.08; /* gentle, paper-like */
+    mix-blend-mode: soft-light; /* softer than overlay for a paper feel */
+    z-index: 0; /* sits with the background, not over content */
+  }
+
+  /* Dial down grain on mobile for clarity/performance */
+  @media (max-width: 640px) {
+    body::before { opacity: 0.06; }
+  }
+
+  /* Adjust grain blending for dark sections so it lifts highlights without muddying */
+  section[class*="bg-[#0B3D2E]"] { position: relative; }
+  section[class*="bg-[#0B3D2E]"]::before,
+  div[class*="bg-[#0B3D2E]"]::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='220' height='220'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='3' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3CfeComponentTransfer%3E%3CfeFuncA type='table' tableValues='0 0 0.06 0'/%3E%3C/feComponentTransfer%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+    background-repeat: repeat;
+    background-size: 220px 220px;
+    opacity: 0.09; /* balanced on dark */
+    mix-blend-mode: screen; /* brighten grain on dark backgrounds without crushing blacks */
+    z-index: 0;
+  }
+
+  @media (max-width: 640px) {
+    section[class*="bg-[#0B3D2E]"]::before,
+    div[class*="bg-[#0B3D2E]"]::before { opacity: 0.06; }
+  }
+
+  /* Site-wide button font: Neue Haas Grotesk (with sensible fallbacks) */
+  button,
+  .btn,
+  .button,
+  input[type="button"],
+  input[type="submit"],
+  a[role="button"],
+  a[class*="inline-flex"][class*="rounded"],
+  a[class*="rounded-md"],
+  a[class*="rounded-lg"],
+  a[class*="rounded-full"] {
+    font-family: var(--font-button);
   }
 }
 
